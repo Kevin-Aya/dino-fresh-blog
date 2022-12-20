@@ -33,7 +33,7 @@ export async function listsPost(): Promise<Post[]> {
   }
 
   let posts = (await Promise.all(promises)) as Post[];
-  posts = posts.sort((a, b) => b.date.getTime() - a.date.getTime());
+  posts = posts.sort((a, b) => a.date.getTime() - b.date.getTime());
   return posts;
 }
 

@@ -1,8 +1,8 @@
-import { Handlers, PageProps } from "https://deno.land/x/fresh@1.1.2/server.ts";
+import { Handlers, PageProps } from "$fresh/server.ts";
 import { Post } from "../types.d.ts";
 import { listsPost } from "../utils/posts.ts";
 
-export const handlers: Handlers = {
+export const handler: Handlers = {
   async GET(req, context) {
     const posts = await listsPost();
     return context.render({ posts });
@@ -14,16 +14,15 @@ export default function Home(props: PageProps) {
   const { posts } = data;
   return (
     <main class="p-4">
-      {posts.map(({ title, date }: Post) => (
-        <article>
-          <h2>
-            <a>
-              {title}
+      <h1 class="text-4xl font-bold">El blog de Kev</h1>
+      {posts.map((post: Post) => (
+        <article class="p-4">
+          <h2 class="text-2xl font-bold">
+            <a class="hover:text-blue-600" href={`/blog/${post.id}`}>
+              {post.title}
             </a>
           </h2>
-          <p>
-            {Intl.DateTimeFormat("es").format(date)}
-          </p>
+          <time>{Intl.DateTimeFormat("es").format(post.date)}</time>
         </article>
       ))}
     </main>
